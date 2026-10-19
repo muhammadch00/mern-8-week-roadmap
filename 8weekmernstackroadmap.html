@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MERN Learning Roadmap</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0b1120;
+            color: #e5eefc;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 35px 15px;
+            background: #111c32;
+            border-bottom: 1px solid #243650;
+        }
+
+        header h1 {
+            color: #00d4ff;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: #a8b8d0;
+        }
+
+        .container {
+            width: min(1100px, 92%);
+            margin: 30px auto;
+        }
+
+        .progress-box {
+            background: #111c32;
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .progress-track {
+            background: #26354d;
+            height: 10px;
+            border-radius: 20px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: #00d4ff;
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .week-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .week-card {
+            text-align: left;
+            background: #111c32;
+            color: white;
+            padding: 22px;
+            border: 1px solid #2b3b56;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .week-card:hover,
+        .week-card.active {
+            border-color: #00d4ff;
+            transform: translateY(-3px);
+        }
+
+        .week-card h2 {
+            color: #00d4ff;
+            margin-bottom: 8px;
+        }
+
+        .week-card p {
+            color: #a8b8d0;
+            font-size: 14px;
+        }
+
+        .week-details {
+            margin-top: 30px;
+        }
+
+        .week-heading {
+            margin-bottom: 18px;
+        }
+
+        .week-heading h2 {
+            color: #00d4ff;
+        }
+
+        .day-card {
+            background: #111c32;
+            border: 1px solid #2b3b56;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+
+        .day-title {
+            padding: 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .day-title:hover {
+            background: #172640;
+        }
+
+        .day-content {
+            display: none;
+            padding: 0 18px 20px;
+            border-top: 1px solid #2b3b56;
+        }
+
+        .day-card.open .day-content {
+            display: block;
+        }
+
+        .day-content h4 {
+            color: #00d4ff;
+            margin: 16px 0 8px;
+        }
+
+        .day-content ul {
+            list-style: none;
+        }
+
+        .day-content li {
+            margin: 8px 0;
+        }
+
+        .day-content input {
+            accent-color: #00d4ff;
+            margin-right: 8px;
+        }
+
+        .project {
+            padding: 12px;
+            border-left: 3px solid #00d4ff;
+            background: #172640;
+            margin-top: 12px;
+            border-radius: 4px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #8295b3;
+        }
+
+        @media (max-width: 750px) {
+            .week-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>🚀 MERN Learning Roadmap</h1>
+        <p>Learn step by step. Practice daily. Build real projects.</p>
+    </header>
+
+    <main class="container">
+
+        <section class="progress-box">
+            <h3>Your Learning Progress</h3>
+            <p id="progressText">0 tasks completed</p>
+            <div class="progress-track">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </section>
+
+        <section class="week-grid" id="weekGrid"></section>
+
+        <section class="week-details" id="weekDetails"></section>
+
+    </main>
+
+    <footer>
+        MERN Roadmap · Learn • Practice • Build
+    </footer>
+
+    <script>
+        const roadmap = [
+            {
+                title: "Week 1",
+                subtitle: "Core JavaScript + Tooling",
+                description: "JavaScript foundations, Git, GitHub and HTML/CSS basics",
+                days: [
+                    {
+                        title: "Day 1 — Setup & Git Basics",
+                        topics: [
+                            "VS Code, Node.js LTS, npm and browser DevTools",
+                            "Git init, status, add and commit",
+                            "Git and GitHub introduction"
+                        ],
+                        task: "Verify your tools and make your first Git commit.",
+                        project: "Create a roadmap project folder and save day1.js.",
+                        checkpoint: "Run node -v, npm -v and git --version."
+                    },
+                    {
+                        title: "Day 2 — Variables, Types & Operators",
+                        topics: [
+                            "let and const",
+                            "Strings, numbers, booleans, null and undefined",
+                            "Arithmetic, comparison and logical operators",
+                            "Percentage and grade calculations"
+                        ],
+                        task: "Create a student marks calculator.",
+                        project: "Calculate percentage and check pass/fail.",
+                        checkpoint: "Explain let vs const and === vs =."
+                    },
+                    {
+                        title: "Day 3 — Conditions & Loops",
+                        topics: [
+                            "if, else if and else",
+                            "for and while loops",
+                            "break and continue",
+                            "Nested conditions"
+                        ],
+                        task: "Print numbers from 1 to 10 and classify student marks.",
+                        project: "Build a simple grade calculator.",
+                        checkpoint: "Test marks below 50 and above 50."
+                    },
+                    {
+                        title: "Day 4 — Functions",
+                        topics: [
+                            "Function declarations and expressions",
+                            "Arrow functions",
+                            "Default and rest parameters",
+                            "Scope and closures"
+                        ],
+                        task: "Write functions for addition and percentage calculation.",
+                        project: "Reusable student result functions.",
+                        checkpoint: "Explain parameters, arguments and return."
+                    },
+                    {
+                        title: "Day 5 — Arrays & Objects",
+                        topics: [
+                            "Creating and accessing arrays and objects",
+                            "map(), filter(), reduce() and find()",
+                            "Destructuring",
+                            "Spread operator"
+                        ],
+                        task: "Filter passing students and calculate total marks.",
+                        project: "Student Marks Manager — first version.",
+                        checkpoint: "Use all four array methods."
+                    },
+                    {
+                        title: "Day 6 — Modern JavaScript + Project",
+                        topics: [
+                            "Template literals",
+                            "Optional chaining (?.)",
+                            "Nullish coalescing (??)",
+                            "Git branches, merge and conflict basics"
+                        ],
+                        task: "Review modern JavaScript syntax and practice a branch.",
+                        project: "Finish Student Marks Manager and save changes with Git.",
+                        checkpoint: "Commit your project and explain its features."
+                    },
+                    {
+                        title: "Day 7 — Revision & Checkpoint",
+                        topics: [
+                            "Revise all Week 1 JavaScript topics",
+                            "Review Git commands",
+                            "HTML page structure and semantic tags",
+                            "Lists, tables and forms",
+                            "CSS selectors, classes and IDs",
+                            "Box model, Flexbox, basic Grid and media queries"
+                        ],
+                        task: "Build a simple responsive landing page from a design.",
+                        project: "Publish or prepare your Week 1 practice projects.",
+                        checkpoint: "Explain each concept without copying notes."
+                    }
+                ]
+            },
+            {
+                title: "Week 2",
+                subtitle: "Async JavaScript + Browser",
+                description: "Promises, APIs, DOM and a deployed search application",
+                days: [
+                    {
+                        title: "Day 1 — Callbacks & Event Loop",
+                        topics: [
+                            "Synchronous vs asynchronous code",
+                            "Callbacks",
+                            "Call stack and event loop",
+                            "setTimeout basics"
+                        ],
+                        task: "Predict the output of asynchronous examples.",
+                        project: "Create a small timing demonstration.",
+                        checkpoint: "Explain why delayed code runs later."
+                    },
+                    {
+                        title: "Day 2 — Promises",
+                        topics: [
+                            "Promise states",
+                            "resolve and reject",
+                            ".then() and .catch()",
+                            "Promise chaining"
+                        ],
+                        task: "Handle both success and failure outcomes.",
+                        project: "Mock a student-data request.",
+                        checkpoint: "Explain fulfilled and rejected."
+                    },
+                    {
+                        title: "Day 3 — Async/Await & Fetch",
+                        topics: [
+                            "async and await",
+                            "try/catch",
+                            "fetch()",
+                            "JSON responses and HTTP errors"
+                        ],
+                        task: "Fetch data from a public API.",
+                        project: "Display API data with loading and error messages.",
+                        checkpoint: "Handle a failed request."
+                    },
+                    {
+                        title: "Day 4 — Modules & DOM",
+                        topics: [
+                            "ES modules: import and export",
+                            "querySelector",
+                            "Events and event listeners",
+                            "Creating and rendering list items"
+                        ],
+                        task: "Separate utility functions into a module.",
+                        project: "Build a searchable list interface.",
+                        checkpoint: "Explain how a button click updates the DOM."
+                    },
+                    {
+                        title: "Day 5 — Classes, this & Debugging",
+                        topics: [
+                            "JavaScript classes",
+                            "Constructor and methods",
+                            "The this keyword",
+                            "Browser breakpoints and debugging"
+                        ],
+                        task: "Create a Student class and inspect variables.",
+                        project: "Add student objects to a simple interface.",
+                        checkpoint: "Set a breakpoint and inspect values."
+                    },
+                    {
+                        title: "Day 6 — Search App",
+                        topics: [
+                            "API integration",
+                            "Search input and submit events",
+                            "Loading, empty and error states",
+                            "Responsive interface"
+                        ],
+                        task: "Combine DOM, fetch and async/await.",
+                        project: "Build a weather or movie search app.",
+                        checkpoint: "Test valid and invalid searches."
+                    },
+                    {
+                        title: "Day 7 — Deploy & Review",
+                        topics: [
+                            "Review asynchronous JavaScript",
+                            "Test API error handling",
+                            "GitHub repository and README",
+                            "GitHub Pages deployment"
+                        ],
+                        task: "Deploy the search application.",
+                        project: "Finish and share your deployed app.",
+                        checkpoint: "Open the live URL and test the app."
+                    }
+                ]
+            },
+            {
+                title: "Week 3",
+                subtitle: "React Foundations",
+                description: "Components, props, state, events and a small React project",
+                days: [
+                    {
+                        title: "Day 1 — React Setup",
+                        topics: [
+                            "What React solves",
+                            "Vite project setup",
+                            "JSX basics",
+                            "React project structure"
+                        ],
+                        task: "Create and run a React app.",
+                        project: "Personal React starter page.",
+                        checkpoint: "Explain JSX and components."
+                    },
+                    {
+                        title: "Day 2 — Components & Props",
+                        topics: [
+                            "Functional components",
+                            "Import and export components",
+                            "Props",
+                            "Reusable UI"
+                        ],
+                        task: "Pass student data through props.",
+                        project: "Student profile cards.",
+                        checkpoint: "Explain parent and child components."
+                    },
+                    {
+                        title: "Day 3 — State & Events",
+                        topics: [
+                            "useState",
+                            "Click handlers",
+                            "Controlled inputs",
+                            "Updating UI"
+                        ],
+                        task: "Build a counter and a simple form.",
+                        project: "Interactive student form.",
+                        checkpoint: "Explain state updates."
+                    },
+                    {
+                        title: "Day 4 — Lists & Conditional Rendering",
+                        topics: [
+                            "Rendering arrays with map()",
+                            "Keys",
+                            "Conditional rendering",
+                            "Empty states"
+                        ],
+                        task: "Render a list of students.",
+                        project: "Student list with empty-state message.",
+                        checkpoint: "Explain why list keys matter."
+                    },
+                    {
+                        title: "Day 5 — Forms & Components",
+                        topics: [
+                            "Input state",
+                            "Form submission",
+                            "Basic validation",
+                            "Component composition"
+                        ],
+                        task: "Validate a student's name and marks.",
+                        project: "Student entry form.",
+                        checkpoint: "Test invalid form input."
+                    },
+                    {
+                        title: "Day 6 — Mini Project",
+                        topics: [
+                            "Combine components, props and state",
+                            "Add and remove items",
+                            "Improve layout and accessibility",
+                            "Test common cases"
+                        ],
+                        task: "Build a functional student list.",
+                        project: "React Student Manager.",
+                        checkpoint: "Add, display and remove students."
+                    },
+                    {
+                        title: "Day 7 — Revision",
+                        topics: [
+                            "Review React basics",
+                            "Fix errors",
+                            "Git commits",
+                            "Project demonstration"
+                        ],
+                        task: "Explain your project without reading every line.",
+                        project: "Finish and document the React Student Manager.",
+                        checkpoint: "Rebuild one component from memory."
+                    }
+                ]
+            }
+        ];
+
+        const weekGrid = document.getElementById("weekGrid");
+        const weekDetails = document.getElementById("weekDetails");
+        const progressText = document.getElementById("progressText");
+        const progressFill = document.getElementById("progressFill");
+
+        let activeWeek = 0;
+
+        function renderWeeks() {
+            weekGrid.innerHTML = "";
+
+            roadmap.forEach((week, index) => {
+                const card = document.createElement("button");
+                card.className = "week-card" + (index === activeWeek ? " active" : "");
+                card.innerHTML = `
+            <h2>${week.title}</h2>
+            <h3>${week.subtitle}</h3>
+            <p>${week.description}</p>
+            <p style="margin-top:12px">7 learning days</p>
+        `;
+
+                card.addEventListener("click", () => {
+                    activeWeek = index;
+                    renderWeeks();
+                    renderWeekDetails();
+                });
+
+                weekGrid.appendChild(card);
+            });
+        }
+
+        function renderWeekDetails() {
+            const week = roadmap[activeWeek];
+
+            weekDetails.innerHTML = `
+        <div class="week-heading">
+            <h2>${week.title}: ${week.subtitle}</h2>
+            <p>${week.description}</p>
+        </div>
+        <div id="daysContainer"></div>
+    `;
+
+            const daysContainer = document.getElementById("daysContainer");
+
+            week.days.forEach((day, dayIndex) => {
+                const card = document.createElement("article");
+                card.className = "day-card";
+
+                const tasksHTML = day.topics.map((topic, topicIndex) => {
+                    const id = `w${activeWeek}d${dayIndex}t${topicIndex}`;
+                    return `
+                <li>
+                    <label>
+                        <input type="checkbox" data-task-id="${id}">
+                        ${topic}
+                    </label>
+                </li>
+            `;
+                }).join("");
+
+                card.innerHTML = `
+            <div class="day-title">
+                <h3>${day.title}</h3>
+                <span>＋</span>
+            </div>
+            <div class="day-content">
+                <h4>Topics to Learn</h4>
+                <ul>${tasksHTML}</ul>
+                <div class="project">
+                    <h4>Practice Task</h4>
+                    <p>${day.task}</p>
+                    <h4>Project</h4>
+                    <p>${day.project}</p>
+                    <h4>Checkpoint</h4>
+                    <p>${day.checkpoint}</p>
+                </div>
+            </div>
+        `;
+
+                card.querySelector(".day-title").addEventListener("click", () => {
+                    card.classList.toggle("open");
+                    card.querySelector(".day-title span").textContent =
+                        card.classList.contains("open") ? "−" : "＋";
+                });
+
+                daysContainer.appendChild(card);
+            });
+
+            document.querySelectorAll("[data-task-id]").forEach(checkbox => {
+                const id = checkbox.dataset.taskId;
+                checkbox.checked = localStorage.getItem(id) === "done";
+
+                checkbox.addEventListener("change", () => {
+                    localStorage.setItem(id, checkbox.checked ? "done" : "todo");
+                    updateProgress();
+                });
+            });
+
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll("[data-task-id]");
+            const allTaskIds = roadmap.flatMap((week, weekIndex) =>
+                week.days.flatMap((day, dayIndex) =>
+                    day.topics.map((topic, topicIndex) =>
+                        `w${weekIndex}d${dayIndex}t${topicIndex}`
+                    )
+                )
+            );
+
+            const completed = allTaskIds.filter(id =>
+                localStorage.getItem(id) === "done"
+            ).length;
+
+            const total = allTaskIds.length;
+            const percent = total ? (completed / total) * 100 : 0;
+
+            progressText.textContent = `${completed} of ${total} topics completed`;
+            progressFill.style.width = `${percent}%`;
+        }
+
+        renderWeeks();
+        renderWeekDetails();
+    </script>
+
+</body>
+
+</html>
