@@ -4,175 +4,774 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MERN Learning Roadmap</title>
+    <title>MERN Stack — 8 Week Roadmap</title>
 
     <style>
+        :root {
+            --bg: #080b14;
+            --panel: #101625;
+            --panel2: #151d30;
+            --border: #25334b;
+            --text: #e9f0ff;
+            --muted: #94a3bb;
+            --cyan: #53e5ff;
+            --blue: #7488ff;
+            --green: #47e6a1;
+            --purple: #b48aff;
+        }
+
         * {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background: #0b1120;
-            color: #e5eefc;
-            line-height: 1.6;
+            margin: 0;
+            font-family: Inter, "Segoe UI", Arial, sans-serif;
+            background:
+                radial-gradient(ellipse at 80% 0%, #172344 0%, transparent 40%),
+                var(--bg);
+            color: var(--text);
+            line-height: 1.65;
         }
 
-        header {
-            text-align: center;
-            padding: 35px 15px;
-            background: #111c32;
-            border-bottom: 1px solid #243650;
+        button,
+        input {
+            font: inherit;
         }
 
-        header h1 {
-            color: #00d4ff;
-            margin-bottom: 8px;
+        button {
+            cursor: pointer;
         }
 
-        header p {
-            color: #a8b8d0;
+        a {
+            color: var(--cyan);
+            text-decoration: none;
         }
 
-        .container {
-            width: min(1100px, 92%);
-            margin: 30px auto;
+        a:hover {
+            text-decoration: underline;
         }
 
-        .progress-box {
-            background: #111c32;
-            padding: 18px;
+        .layout {
+            display: grid;
+            grid-template-columns: 255px minmax(0, 1fr);
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            padding: 25px 17px;
+            background: #0b101c;
+            border-right: 1px solid var(--border);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 5px 8px 25px;
+            font-size: 19px;
+            font-weight: 800;
+        }
+
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+            display: grid;
+            place-items: center;
             border-radius: 12px;
-            margin-bottom: 25px;
+            color: var(--cyan);
+            background: #122c3c;
+            border: 1px solid #236078;
         }
 
-        .progress-track {
-            background: #26354d;
-            height: 10px;
-            border-radius: 20px;
-            margin-top: 10px;
+        .brand small {
+            display: block;
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: var(--muted);
+        }
+
+        .nav-label {
+            color: #71809a;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            padding: 15px 10px 7px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: 10px 12px;
+            margin: 4px 0;
+            text-align: left;
+            border: 1px solid transparent;
+            border-radius: 9px;
+            background: transparent;
+            color: #aebbd1;
+            font-size: 12px;
+            transition: .2s;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            color: var(--cyan);
+            background: #132235;
+            border-color: #24425b;
+        }
+
+        .nav-num {
+            width: 25px;
+            height: 25px;
+            display: grid;
+            place-items: center;
+            border-radius: 7px;
+            background: #1a2436;
+            font-size: 10px;
+        }
+
+        .sidebar-progress {
+            margin-top: 27px;
+            padding: 15px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--panel);
+        }
+
+        .progress-line {
+            height: 5px;
             overflow: hidden;
+            background: #28344a;
+            border-radius: 10px;
+            margin: 10px 0;
         }
 
         .progress-fill {
-            background: #00d4ff;
-            height: 100%;
             width: 0%;
-            transition: width 0.3s;
+            height: 100%;
+            background: linear-gradient(90deg, var(--cyan), var(--blue));
+            transition: width .3s;
+        }
+
+        main {
+            min-width: 0;
+            padding: 30px 4.5%;
+            max-width: 1550px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .breadcrumb {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .top-actions {
+            display: flex;
+            gap: 9px;
+        }
+
+        .btn {
+            padding: 9px 14px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            background: var(--panel);
+            color: var(--text);
+            font-size: 12px;
+            transition: .2s;
+        }
+
+        .btn:hover {
+            border-color: var(--cyan);
+            color: var(--cyan);
+        }
+
+        .btn-primary {
+            background: var(--cyan);
+            color: #07111a;
+            border-color: var(--cyan);
+            font-weight: 800;
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: clamp(24px, 5vw, 50px);
+            border: 1px solid #284361;
+            border-radius: 20px;
+            background: linear-gradient(125deg, #13243b, #11182a 60%, #171a34);
+        }
+
+        .hero::after {
+            content: "JS";
+            position: absolute;
+            right: 35px;
+            top: 10px;
+            font-size: clamp(100px, 17vw, 200px);
+            line-height: 1.4;
+            font-weight: 900;
+            color: #ffffff06;
+            pointer-events: none;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            padding: 5px 10px;
+            color: var(--cyan);
+            border: 1px solid #24536b;
+            background: #112d40;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+        }
+
+        h1 {
+            font-size: clamp(30px, 5vw, 52px);
+            line-height: 1.15;
+            margin: 20px 0 12px;
+            letter-spacing: -1.5px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, var(--cyan), #a7b4ff);
+            color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            max-width: 650px;
+            color: #aab9d0;
+            font-size: 14px;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+            font-size: 12px;
+            color: #d6e1f5;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+            margin: 22px 0 35px;
+        }
+
+        .stat {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            padding: 18px;
+        }
+
+        .stat-icon {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .stat-number {
+            font-size: 27px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        .section {
+            margin: 36px 0;
+            scroll-margin-top: 25px;
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 15px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+        }
+
+        .section-heading h2 {
+            font-size: 23px;
+            margin: 0;
+            letter-spacing: -.5px;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+            font-size: 12px;
+            margin: 4px 0 0;
         }
 
         .week-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 18px;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
         }
 
         .week-card {
+            position: relative;
+            min-width: 0;
+            padding: 17px;
             text-align: left;
-            background: #111c32;
-            color: white;
-            padding: 22px;
-            border: 1px solid #2b3b56;
-            border-radius: 14px;
-            cursor: pointer;
-            transition: 0.2s;
+            color: var(--text);
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            transition: .2s;
         }
 
         .week-card:hover,
         .week-card.active {
-            border-color: #00d4ff;
             transform: translateY(-3px);
+            border-color: var(--cyan);
+            background: #142137;
         }
 
-        .week-card h2 {
-            color: #00d4ff;
-            margin-bottom: 8px;
+        .week-card.completed {
+            border-color: #286c59;
+        }
+
+        .week-card .week-label {
+            color: var(--cyan);
+            font-size: 10px;
+            letter-spacing: 1px;
+            font-weight: 800;
+        }
+
+        .week-card h3 {
+            font-size: 14px;
+            margin: 8px 0;
         }
 
         .week-card p {
-            color: #a8b8d0;
-            font-size: 14px;
+            color: var(--muted);
+            font-size: 11px;
+            margin: 0;
         }
 
-        .week-details {
-            margin-top: 30px;
+        .card-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 17px;
+            font-size: 10px;
+            color: var(--muted);
         }
 
-        .week-heading {
-            margin-bottom: 18px;
-        }
-
-        .week-heading h2 {
-            color: #00d4ff;
-        }
-
-        .day-card {
-            background: #111c32;
-            border: 1px solid #2b3b56;
-            border-radius: 12px;
-            margin-bottom: 12px;
+        .week-card .mini-progress {
+            height: 3px;
+            margin-top: 10px;
+            background: #28354b;
+            border-radius: 5px;
             overflow: hidden;
         }
 
-        .day-title {
-            padding: 16px;
-            cursor: pointer;
+        .mini-progress span {
+            display: block;
+            height: 100%;
+            width: 0%;
+            background: var(--green);
+        }
+
+        .detail-panel {
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            background: var(--panel);
+        }
+
+        .detail-head {
+            padding: 24px;
+            background: linear-gradient(100deg, #14253c, #111827);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .detail-head h2 {
+            margin: 12px 0 4px;
+        }
+
+        .detail-head p {
+            color: var(--muted);
+            font-size: 13px;
+            margin: 0;
+        }
+
+        .detail-body {
+            padding: 22px;
+        }
+
+        .phase-tag {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 5px;
+            color: var(--purple);
+            background: #2b2142;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .day {
+            margin: 0 0 12px;
+            padding: 15px;
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            background: #0d1422;
+        }
+
+        .day-head {
             display: flex;
             justify-content: space-between;
             gap: 10px;
             align-items: center;
+            margin-bottom: 10px;
         }
 
-        .day-title:hover {
-            background: #172640;
+        .day h3 {
+            font-size: 13px;
+            margin: 0;
         }
 
-        .day-content {
-            display: none;
-            padding: 0 18px 20px;
-            border-top: 1px solid #2b3b56;
+        .day-count {
+            color: var(--muted);
+            font-size: 10px;
         }
 
-        .day-card.open .day-content {
+        .task {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            padding: 8px 0;
+            color: #bdc9dc;
+            font-size: 12px;
+            border-bottom: 1px solid #1b2638;
+        }
+
+        .task:last-child {
+            border-bottom: 0;
+        }
+
+        .task input {
+            margin-top: 5px;
+            accent-color: var(--cyan);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .task input:checked+span {
+            text-decoration: line-through;
+            color: #74849a;
+        }
+
+        .project-box,
+        .checkpoint,
+        .info-box {
+            margin-top: 17px;
+            padding: 17px;
+            border-radius: 11px;
+            background: #10221f;
+            border: 1px solid #275747;
+        }
+
+        .project-box h3,
+        .checkpoint h3,
+        .info-box h3 {
+            font-size: 13px;
+            margin: 0 0 8px;
+        }
+
+        .project-box p,
+        .checkpoint p,
+        .info-box p {
+            color: #b9c9d0;
+            font-size: 12px;
+            margin: 0;
+        }
+
+        .checkpoint {
+            background: #201c35;
+            border-color: #453768;
+        }
+
+        .info-box {
+            background: #121c30;
+            border-color: #2c405f;
+        }
+
+        .checkpoint h3 {
+            color: #c5a8ff;
+        }
+
+        .project-box h3 {
+            color: var(--green);
+        }
+
+        .info-box h3 {
+            color: var(--cyan);
+        }
+
+        .checkpoint .task {
+            border-color: #322a49;
+        }
+
+        .split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .content-card {
+            padding: 20px;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            background: var(--panel);
+        }
+
+        .content-card h3 {
+            font-size: 15px;
+            margin: 0 0 10px;
+        }
+
+        .content-card p,
+        .content-card li {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .content-card ul {
+            padding-left: 20px;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 560px;
+            font-size: 12px;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 13px 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            color: var(--cyan);
+            background: #121c2d;
+        }
+
+        td {
+            color: #c1cee0;
+        }
+
+        tr:last-child td {
+            border-bottom: 0;
+        }
+
+        .resources {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .resource {
             display: block;
+            padding: 15px;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 10px;
         }
 
-        .day-content h4 {
-            color: #00d4ff;
-            margin: 16px 0 8px;
+        .resource strong {
+            display: block;
+            font-size: 12px;
+            color: var(--text);
+            margin-bottom: 5px;
         }
 
-        .day-content ul {
-            list-style: none;
+        .resource span {
+            font-size: 11px;
+            color: var(--muted);
         }
 
-        .day-content li {
-            margin: 8px 0;
+        .capstone-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
         }
 
-        .day-content input {
-            accent-color: #00d4ff;
-            margin-right: 8px;
+        .capstone {
+            padding: 18px;
+            border: 1px solid var(--border);
+            background: var(--panel);
+            border-radius: 12px;
         }
 
-        .project {
-            padding: 12px;
-            border-left: 3px solid #00d4ff;
-            background: #172640;
-            margin-top: 12px;
-            border-radius: 4px;
+        .capstone h3 {
+            margin: 0 0 8px;
+            font-size: 14px;
         }
 
-        footer {
+        .capstone p {
+            margin: 4px 0;
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .search {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 9px;
+            background: #0c1320;
+            border: 1px solid var(--border);
+            color: var(--text);
+            outline: none;
+            margin-bottom: 16px;
+        }
+
+        .search:focus {
+            border-color: var(--cyan);
+        }
+
+        .footer {
+            margin-top: 50px;
+            padding: 25px 0;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 11px;
             text-align: center;
-            padding: 25px;
-            color: #8295b3;
         }
 
-        @media (max-width: 750px) {
+        .mobile-menu {
+            display: none;
+        }
+
+        @media (max-width: 1100px) {
+            .layout {
+                grid-template-columns: 215px minmax(0, 1fr);
+            }
+
             .week-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .resources {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 700px) {
+            .layout {
+                display: block;
+            }
+
+            .sidebar {
+                display: none;
+                position: static;
+                height: auto;
+                max-height: none;
+                border-right: 0;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .sidebar.open {
+                display: block;
+            }
+
+            main {
+                padding: 18px 14px;
+            }
+
+            .mobile-menu {
+                display: inline-block;
+            }
+
+            .week-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .split,
+            .capstone-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .resources {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .hero {
+                padding: 25px 20px;
+            }
+
+            .hero-meta {
+                gap: 10px;
+            }
+
+            .detail-body {
+                padding: 13px;
+            }
+
+            .detail-head {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 390px) {
+            .stats {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+
+            .stat {
+                padding: 12px;
+            }
+
+            .week-grid {
+                gap: 8px;
+            }
+
+            .week-card {
+                padding: 12px;
+            }
+
+            .resources {
                 grid-template-columns: 1fr;
             }
         }
@@ -181,434 +780,921 @@
 
 <body>
 
-    <header>
-        <h1>🚀 MERN Learning Roadmap</h1>
-        <p>Learn step by step. Practice daily. Build real projects.</p>
-    </header>
+    <div class="layout">
 
-    <main class="container">
-
-        <section class="progress-box">
-            <h3>Your Learning Progress</h3>
-            <p id="progressText">0 tasks completed</p>
-            <div class="progress-track">
-                <div class="progress-fill" id="progressFill"></div>
+        <aside class="sidebar" id="sidebar">
+            <div class="brand">
+                <div class="brand-icon">M</div>
+                <div>MERN MASTER<small>LEARNING DASHBOARD</small></div>
             </div>
-        </section>
 
-        <section class="week-grid" id="weekGrid"></section>
+            <div class="nav-label">OVERVIEW</div>
+            <button class="nav-item active" data-target="overview">
+                <span class="nav-num">⌂</span> Dashboard
+            </button>
+            <button class="nav-item" data-target="prerequisites">
+                <span class="nav-num">01</span> Prerequisites
+            </button>
 
-        <section class="week-details" id="weekDetails"></section>
+            <div class="nav-label">YOUR LEARNING PATH</div>
+            <div id="weekNav"></div>
 
-    </main>
+            <div class="nav-label">FINAL STAGE</div>
+            <button class="nav-item" data-target="capstones">
+                <span class="nav-num">07</span> Capstone Projects
+            </button>
+            <button class="nav-item" data-target="checklist">
+                <span class="nav-num">✓</span> Progress Checklist
+            </button>
+            <button class="nav-item" data-target="resources">
+                <span class="nav-num">↗</span> Free Resources
+            </button>
 
-    <footer>
-        MERN Roadmap · Learn • Practice • Build
-    </footer>
+            <div class="sidebar-progress">
+                <div style="font-size:12px;font-weight:700">Overall progress</div>
+                <div style="display:flex;justify-content:space-between;align-items:center">
+                    <span id="sidePercent" style="font-size:25px;font-weight:800">0%</span>
+                    <span style="color:var(--muted);font-size:10px" id="sideCount">0 tasks</span>
+                </div>
+                <div class="progress-line">
+                    <div class="progress-fill" id="sideFill"></div>
+                </div>
+                <span style="color:var(--muted);font-size:10px">Keep learning every day.</span>
+            </div>
+        </aside>
+
+        <main id="overview">
+
+            <div class="topbar">
+                <div style="display:flex;align-items:center;gap:10px">
+                    <button class="btn mobile-menu" id="menuBtn">☰ Menu</button>
+                    <div class="breadcrumb">Learning / <span style="color:var(--cyan)">MERN Roadmap</span></div>
+                </div>
+                <div class="top-actions">
+                    <button class="btn" id="resetBtn">Reset progress</button>
+                    <button class="btn btn-primary" id="continueBtn">Continue learning →</button>
+                </div>
+            </div>
+
+            <section class="hero">
+                <span class="eyebrow">YOUR 8-WEEK JOURNEY</span>
+                <h1>Become a <span class="gradient-text">MERN Stack</span><br>Developer.</h1>
+                <p>
+                    Go from modern JavaScript foundations to a full-stack web application.
+                    Learn by building real projects, practice every day, and deploy your work.
+                </p>
+                <div class="hero-meta">
+                    <span>◷ 8 Weeks</span>
+                    <span>▣ ~150 Hours</span>
+                    <span>⌘ 6 Days / Week</span>
+                    <span>✦ Free Resources</span>
+                </div>
+            </section>
+
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-icon">📚</div>
+                    <div class="stat-number">08</div>
+                    <div class="stat-label">Learning Weeks</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-icon">⌘</div>
+                    <div class="stat-number">04</div>
+                    <div class="stat-label">Core Technologies</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-icon">🚀</div>
+                    <div class="stat-number">03+</div>
+                    <div class="stat-label">Major Projects</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-icon">✓</div>
+                    <div class="stat-number" id="statProgress">0%</div>
+                    <div class="stat-label">Your Progress</div>
+                </div>
+            </div>
+
+            <section class="section" id="prerequisites">
+                <div class="section-heading">
+                    <div>
+                        <h2>Before you start</h2>
+                        <p>Check your foundation before beginning Week 1.</p>
+                    </div>
+                    <span class="phase-tag">FOUNDATION</span>
+                </div>
+
+                <div class="split">
+                    <div class="content-card">
+                        <h3>🌐 HTML & CSS</h3>
+                        <ul>
+                            <li>HTML document structure and semantic tags</li>
+                            <li>Links, images, lists, tables and forms</li>
+                            <li>CSS selectors, classes and IDs</li>
+                            <li>Box model, margin, border and padding</li>
+                            <li>Flexbox, basic Grid and media queries</li>
+                            <li>Build a responsive landing page independently</li>
+                        </ul>
+                    </div>
+                    <div class="content-card">
+                        <h3>💻 Programming fundamentals</h3>
+                        <ul>
+                            <li>Variables, data types and operators</li>
+                            <li>if/else conditions and loops</li>
+                            <li>Functions, parameters and return values</li>
+                            <li>Arrays, lists and basic objects</li>
+                            <li>Break a problem into smaller steps</li>
+                            <li>Read error messages and debug code</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <h3>Quick self-check</h3>
+                    <p>
+                        Can you build a responsive two-section web page from scratch and write
+                        a function that finds the largest number in a list? If not, spend
+                        1–2 weeks on
+                        <a href="https://www.freecodecamp.org/learn/2022/responsive-web-design/" target="_blank"
+                            rel="noopener">freeCodeCamp Responsive Web Design</a>
+                        and <a href="https://javascript.info/first-steps" target="_blank" rel="noopener">javascript.info
+                            — Part 1</a> first.
+                    </p>
+                </div>
+            </section>
+
+            <section class="section" id="roadmap">
+                <div class="section-heading">
+                    <div>
+                        <h2>Your learning path</h2>
+                        <p>Select any week to open its daily lessons, project and checkpoint.</p>
+                    </div>
+                </div>
+                <div class="week-grid" id="weekGrid"></div>
+            </section>
+
+            <section class="section" id="weekDetails">
+                <div class="section-heading">
+                    <div>
+                        <h2>Weekly curriculum</h2>
+                        <p>Tick each topic after studying and practicing it.</p>
+                    </div>
+                </div>
+
+                <input class="search" id="searchInput" placeholder="⌕  Search topics in the selected week...">
+
+                <div class="detail-panel" id="detailPanel"></div>
+            </section>
+
+            <section class="section" id="rhythm">
+                <div class="section-heading">
+                    <div>
+                        <h2>Weekly study routine</h2>
+                        <p>Consistency matters more than watching tutorials all day.</p>
+                    </div>
+                </div>
+
+                <div class="split">
+                    <div class="content-card">
+                        <h3>📅 Days 1–4 · Learn</h3>
+                        <p>Study concepts, type every example yourself, experiment with code and read official
+                            documentation.</p>
+                        <h3 style="margin-top:20px">🛠 Days 5–6 · Build</h3>
+                        <p>Build the week's mini-project without keeping a tutorial open. Push your progress to GitHub.
+                        </p>
+                        <h3 style="margin-top:20px">🌿 Day 7 · Review</h3>
+                        <p>Rest, revise difficult concepts and prepare for the next week.</p>
+                    </div>
+
+                    <div class="content-card">
+                        <h3>Rules that make it work</h3>
+                        <ul>
+                            <li>Commit code to GitHub every day.</li>
+                            <li>Debug for 20 minutes before searching for help.</li>
+                            <li>Read documentation before relying on AI answers.</li>
+                            <li>Use AI to understand errors, not to avoid learning.</li>
+                            <li>Don't skip a checkpoint just to finish on time.</li>
+                            <li>Adjust the schedule if a topic needs more practice.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="capstones">
+                <div class="section-heading">
+                    <div>
+                        <h2>Choose your capstone</h2>
+                        <p>Pick one full-stack application with at least two roles and related data models.</p>
+                    </div>
+                </div>
+
+                <div class="capstone-grid">
+                    <div class="capstone">
+                        <h3>🏥 Clinic Appointment Booking</h3>
+                        <p><b>Roles:</b> Patient, Doctor, Admin</p>
+                        <p><b>Stretch:</b> Email reminders and availability calendar</p>
+                    </div>
+                    <div class="capstone">
+                        <h3>🎓 Mini Learning Management System</h3>
+                        <p><b>Roles:</b> Student, Instructor</p>
+                        <p><b>Stretch:</b> Progress tracking and certificates</p>
+                    </div>
+                    <div class="capstone">
+                        <h3>💼 Job Board</h3>
+                        <p><b>Roles:</b> Candidate, Employer</p>
+                        <p><b>Stretch:</b> Resume uploads and application pipeline</p>
+                    </div>
+                    <div class="capstone">
+                        <h3>🏋️ Fitness Tracker</h3>
+                        <p><b>Roles:</b> Member, Trainer</p>
+                        <p><b>Stretch:</b> Workout plans and progress charts</p>
+                    </div>
+                    <div class="capstone">
+                        <h3>🏠 Real Estate Listings</h3>
+                        <p><b>Roles:</b> Buyer, Agent</p>
+                        <p><b>Stretch:</b> Search filters, galleries and saved listings</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="checklist">
+                <div class="section-heading">
+                    <div>
+                        <h2>8-week progress checklist</h2>
+                        <p>Mark a week complete when you have met its checkpoint.</p>
+                    </div>
+                </div>
+
+                <div class="content-card" id="finalChecklist"></div>
+            </section>
+
+            <section class="section" id="resources">
+                <div class="section-heading">
+                    <div>
+                        <h2>Free learning resources</h2>
+                        <p>Start with official documentation, then use structured courses.</p>
+                    </div>
+                </div>
+                <div class="resources" id="resourceGrid"></div>
+            </section>
+
+            <footer class="footer">
+                MERN MASTER · 8-WEEK ROADMAP<br>
+                Learn consistently. Build independently. Ship your work.
+            </footer>
+        </main>
+    </div>
 
     <script>
-        const roadmap = [
+        const weeks = [
             {
-                title: "Week 1",
-                subtitle: "Core JavaScript + Tooling",
-                description: "JavaScript foundations, Git, GitHub and HTML/CSS basics",
+                title: "Core JavaScript + Tooling",
+                short: "Modern JavaScript, Git and programming foundations.",
+                phase: "JAVASCRIPT FOUNDATIONS",
+                project: "JavaScript practice collection: array exercises, functions, objects and a GitHub repository with regular commits.",
+                checkpoint: "Explain let vs const, write map/filter/reduce from memory, work with objects and functions, and use Git to commit and push your code.",
                 days: [
-                    {
-                        title: "Day 1 — Setup & Git Basics",
-                        topics: [
-                            "VS Code, Node.js LTS, npm and browser DevTools",
-                            "Git init, status, add and commit",
-                            "Git and GitHub introduction"
-                        ],
-                        task: "Verify your tools and make your first Git commit.",
-                        project: "Create a roadmap project folder and save day1.js.",
-                        checkpoint: "Run node -v, npm -v and git --version."
-                    },
-                    {
-                        title: "Day 2 — Variables, Types & Operators",
-                        topics: [
-                            "let and const",
-                            "Strings, numbers, booleans, null and undefined",
-                            "Arithmetic, comparison and logical operators",
-                            "Percentage and grade calculations"
-                        ],
-                        task: "Create a student marks calculator.",
-                        project: "Calculate percentage and check pass/fail.",
-                        checkpoint: "Explain let vs const and === vs =."
-                    },
-                    {
-                        title: "Day 3 — Conditions & Loops",
-                        topics: [
-                            "if, else if and else",
-                            "for and while loops",
-                            "break and continue",
-                            "Nested conditions"
-                        ],
-                        task: "Print numbers from 1 to 10 and classify student marks.",
-                        project: "Build a simple grade calculator.",
-                        checkpoint: "Test marks below 50 and above 50."
-                    },
-                    {
-                        title: "Day 4 — Functions",
-                        topics: [
-                            "Function declarations and expressions",
-                            "Arrow functions",
-                            "Default and rest parameters",
-                            "Scope and closures"
-                        ],
-                        task: "Write functions for addition and percentage calculation.",
-                        project: "Reusable student result functions.",
-                        checkpoint: "Explain parameters, arguments and return."
-                    },
-                    {
-                        title: "Day 5 — Arrays & Objects",
-                        topics: [
-                            "Creating and accessing arrays and objects",
-                            "map(), filter(), reduce() and find()",
-                            "Destructuring",
-                            "Spread operator"
-                        ],
-                        task: "Filter passing students and calculate total marks.",
-                        project: "Student Marks Manager — first version.",
-                        checkpoint: "Use all four array methods."
-                    },
-                    {
-                        title: "Day 6 — Modern JavaScript + Project",
-                        topics: [
-                            "Template literals",
-                            "Optional chaining (?.)",
-                            "Nullish coalescing (??)",
-                            "Git branches, merge and conflict basics"
-                        ],
-                        task: "Review modern JavaScript syntax and practice a branch.",
-                        project: "Finish Student Marks Manager and save changes with Git.",
-                        checkpoint: "Commit your project and explain its features."
-                    },
-                    {
-                        title: "Day 7 — Revision & Checkpoint",
-                        topics: [
-                            "Revise all Week 1 JavaScript topics",
-                            "Review Git commands",
-                            "HTML page structure and semantic tags",
-                            "Lists, tables and forms",
-                            "CSS selectors, classes and IDs",
-                            "Box model, Flexbox, basic Grid and media queries"
-                        ],
-                        task: "Build a simple responsive landing page from a design.",
-                        project: "Publish or prepare your Week 1 practice projects.",
-                        checkpoint: "Explain each concept without copying notes."
-                    }
+                    ["Day 1 · Setup & Git", [
+                        "Install VS Code, Node.js LTS and npm.",
+                        "Learn browser DevTools and the console.",
+                        "Git: init, status, add, commit and log.",
+                        "GitHub: create a repository and push code."
+                    ]],
+                    ["Day 2 · Variables & Logic", [
+                        "Understand let, const, data types and operators.",
+                        "Practice comparisons, truthy/falsy values and conditions.",
+                        "Write if/else, switch and loops.",
+                        "Solve basic programming problems."
+                    ]],
+                    ["Day 3 · Functions", [
+                        "Function declarations and expressions.",
+                        "Arrow functions, parameters and return values.",
+                        "Default and rest parameters.",
+                        "Scope, lexical scope and closures."
+                    ]],
+                    ["Day 4 · Arrays & Objects", [
+                        "Learn map, filter, reduce and find.",
+                        "Destructuring and spread syntax.",
+                        "Template literals and optional chaining (?.).",
+                        "Nullish coalescing (??), objects and nested data."
+                    ]],
+                    ["Days 5–6 · Practice Project", [
+                        "Build a student marks or expense calculator.",
+                        "Use arrays, objects and reusable functions.",
+                        "Solve at least 10 JavaScript exercises.",
+                        "Push the project to GitHub."
+                    ]]
                 ]
             },
             {
-                title: "Week 2",
-                subtitle: "Async JavaScript + Browser",
-                description: "Promises, APIs, DOM and a deployed search application",
+                title: "Async JavaScript + Browser",
+                short: "Promises, fetch, DOM and a real API project.",
+                phase: "JAVASCRIPT FOUNDATIONS",
+                project: "A weather or movie-search app using a public API, with loading indicators, error messages and a live GitHub Pages deployment.",
+                checkpoint: "Explain await, handle API errors, render fetched data in the DOM and deploy your vanilla JavaScript project.",
                 days: [
-                    {
-                        title: "Day 1 — Callbacks & Event Loop",
-                        topics: [
-                            "Synchronous vs asynchronous code",
-                            "Callbacks",
-                            "Call stack and event loop",
-                            "setTimeout basics"
-                        ],
-                        task: "Predict the output of asynchronous examples.",
-                        project: "Create a small timing demonstration.",
-                        checkpoint: "Explain why delayed code runs later."
-                    },
-                    {
-                        title: "Day 2 — Promises",
-                        topics: [
-                            "Promise states",
-                            "resolve and reject",
-                            ".then() and .catch()",
-                            "Promise chaining"
-                        ],
-                        task: "Handle both success and failure outcomes.",
-                        project: "Mock a student-data request.",
-                        checkpoint: "Explain fulfilled and rejected."
-                    },
-                    {
-                        title: "Day 3 — Async/Await & Fetch",
-                        topics: [
-                            "async and await",
-                            "try/catch",
-                            "fetch()",
-                            "JSON responses and HTTP errors"
-                        ],
-                        task: "Fetch data from a public API.",
-                        project: "Display API data with loading and error messages.",
-                        checkpoint: "Handle a failed request."
-                    },
-                    {
-                        title: "Day 4 — Modules & DOM",
-                        topics: [
-                            "ES modules: import and export",
-                            "querySelector",
-                            "Events and event listeners",
-                            "Creating and rendering list items"
-                        ],
-                        task: "Separate utility functions into a module.",
-                        project: "Build a searchable list interface.",
-                        checkpoint: "Explain how a button click updates the DOM."
-                    },
-                    {
-                        title: "Day 5 — Classes, this & Debugging",
-                        topics: [
-                            "JavaScript classes",
-                            "Constructor and methods",
-                            "The this keyword",
-                            "Browser breakpoints and debugging"
-                        ],
-                        task: "Create a Student class and inspect variables.",
-                        project: "Add student objects to a simple interface.",
-                        checkpoint: "Set a breakpoint and inspect values."
-                    },
-                    {
-                        title: "Day 6 — Search App",
-                        topics: [
-                            "API integration",
-                            "Search input and submit events",
-                            "Loading, empty and error states",
-                            "Responsive interface"
-                        ],
-                        task: "Combine DOM, fetch and async/await.",
-                        project: "Build a weather or movie search app.",
-                        checkpoint: "Test valid and invalid searches."
-                    },
-                    {
-                        title: "Day 7 — Deploy & Review",
-                        topics: [
-                            "Review asynchronous JavaScript",
-                            "Test API error handling",
-                            "GitHub repository and README",
-                            "GitHub Pages deployment"
-                        ],
-                        task: "Deploy the search application.",
-                        project: "Finish and share your deployed app.",
-                        checkpoint: "Open the live URL and test the app."
-                    }
+                    ["Day 1 · Async Foundations", [
+                        "Understand synchronous and asynchronous code.",
+                        "Learn callbacks and the event loop.",
+                        "Understand Promises and their states.",
+                        "Practice then, catch and finally."
+                    ]],
+                    ["Day 2 · Async/Await & Fetch", [
+                        "Use async functions and await.",
+                        "Handle errors with try/catch.",
+                        "Fetch JSON data from a public API.",
+                        "Check HTTP responses and handle failed requests."
+                    ]],
+                    ["Day 3 · Browser & DOM", [
+                        "Select elements using querySelector.",
+                        "Handle click, submit and input events.",
+                        "Create and render HTML elements from data.",
+                        "Build loading, empty and error states."
+                    ]],
+                    ["Day 4 · Modules & Debugging", [
+                        "Use ES modules with import and export.",
+                        "Understand classes and this.",
+                        "Debug with breakpoints and the console.",
+                        "Separate application logic into files."
+                    ]],
+                    ["Days 5–6 · API Project", [
+                        "Build a weather or movie-search interface.",
+                        "Call a public API and display real results.",
+                        "Add search, loading and error handling.",
+                        "Deploy to GitHub Pages and test the live link."
+                    ]]
                 ]
             },
             {
-                title: "Week 3",
-                subtitle: "React Foundations",
-                description: "Components, props, state, events and a small React project",
+                title: "Node.js, Express & MongoDB",
+                short: "Build a REST API and connect it to a database.",
+                phase: "BACKEND",
+                project: "A working Express API with Mongoose models and full CRUD operations, tested locally using Postman or Thunder Client.",
+                checkpoint: "Explain HTTP methods and status codes, build Express routes and use Mongoose to create, read, update and delete documents.",
                 days: [
-                    {
-                        title: "Day 1 — React Setup",
-                        topics: [
-                            "What React solves",
-                            "Vite project setup",
-                            "JSX basics",
-                            "React project structure"
-                        ],
-                        task: "Create and run a React app.",
-                        project: "Personal React starter page.",
-                        checkpoint: "Explain JSX and components."
-                    },
-                    {
-                        title: "Day 2 — Components & Props",
-                        topics: [
-                            "Functional components",
-                            "Import and export components",
-                            "Props",
-                            "Reusable UI"
-                        ],
-                        task: "Pass student data through props.",
-                        project: "Student profile cards.",
-                        checkpoint: "Explain parent and child components."
-                    },
-                    {
-                        title: "Day 3 — State & Events",
-                        topics: [
-                            "useState",
-                            "Click handlers",
-                            "Controlled inputs",
-                            "Updating UI"
-                        ],
-                        task: "Build a counter and a simple form.",
-                        project: "Interactive student form.",
-                        checkpoint: "Explain state updates."
-                    },
-                    {
-                        title: "Day 4 — Lists & Conditional Rendering",
-                        topics: [
-                            "Rendering arrays with map()",
-                            "Keys",
-                            "Conditional rendering",
-                            "Empty states"
-                        ],
-                        task: "Render a list of students.",
-                        project: "Student list with empty-state message.",
-                        checkpoint: "Explain why list keys matter."
-                    },
-                    {
-                        title: "Day 5 — Forms & Components",
-                        topics: [
-                            "Input state",
-                            "Form submission",
-                            "Basic validation",
-                            "Component composition"
-                        ],
-                        task: "Validate a student's name and marks.",
-                        project: "Student entry form.",
-                        checkpoint: "Test invalid form input."
-                    },
-                    {
-                        title: "Day 6 — Mini Project",
-                        topics: [
-                            "Combine components, props and state",
-                            "Add and remove items",
-                            "Improve layout and accessibility",
-                            "Test common cases"
-                        ],
-                        task: "Build a functional student list.",
-                        project: "React Student Manager.",
-                        checkpoint: "Add, display and remove students."
-                    },
-                    {
-                        title: "Day 7 — Revision",
-                        topics: [
-                            "Review React basics",
-                            "Fix errors",
-                            "Git commits",
-                            "Project demonstration"
-                        ],
-                        task: "Explain your project without reading every line.",
-                        project: "Finish and document the React Student Manager.",
-                        checkpoint: "Rebuild one component from memory."
-                    }
+                    ["Day 1 · Node.js", [
+                        "Understand Node.js and its runtime.",
+                        "Learn modules, npm and package.json.",
+                        "Use fs and path modules.",
+                        "Configure environment variables and .env.",
+                        "Run scripts with nodemon."
+                    ]],
+                    ["Day 2 · HTTP & Express", [
+                        "Understand requests, responses, headers and status codes.",
+                        "Install Express and create a server.",
+                        "Use express.json() and middleware.",
+                        "Create routes, route parameters and query strings."
+                    ]],
+                    ["Day 3 · REST API", [
+                        "Design resources and REST endpoints.",
+                        "Map GET, POST, PUT, PATCH and DELETE to CRUD.",
+                        "Use express.Router for route organization.",
+                        "Test endpoints with Postman, Insomnia or Thunder Client."
+                    ]],
+                    ["Day 4 · MongoDB & Mongoose", [
+                        "Understand documents and collections.",
+                        "Create a MongoDB Atlas free cluster.",
+                        "Explore databases with MongoDB Compass.",
+                        "Define Mongoose schemas, models and validation.",
+                        "Implement database CRUD queries."
+                    ]],
+                    ["Days 5–6 · Backend Project", [
+                        "Build a task or notes API.",
+                        "Create, list, update and delete records.",
+                        "Connect MongoDB using environment variables.",
+                        "Test successful and unsuccessful API requests."
+                    ]]
+                ]
+            },
+            {
+                title: "Authentication & API Security",
+                short: "JWT authentication, authorization and deployment.",
+                phase: "BACKEND",
+                project: "A deployed Task or Notes API with signup, login, per-user CRUD, pagination, validation and structured error responses.",
+                checkpoint: "Explain middleware, password hashing, JWTs, role authorization and how to design REST endpoints for a new application.",
+                days: [
+                    ["Day 1 · Backend Structure", [
+                        "Organize routes, controllers and models.",
+                        "Build centralized error-handling middleware.",
+                        "Use consistent response formats and status codes.",
+                        "Configure separate development environment variables."
+                    ]],
+                    ["Day 2 · Relationships & Queries", [
+                        "Understand embedding versus referencing documents.",
+                        "Use references and Mongoose populate().",
+                        "Add filtering, sorting and pagination.",
+                        "Understand indexes and common query patterns."
+                    ]],
+                    ["Day 3 · Authentication", [
+                        "Create signup and login endpoints.",
+                        "Hash passwords using bcrypt or bcryptjs.",
+                        "Generate and verify JWT access tokens.",
+                        "Protect routes using authentication middleware."
+                    ]],
+                    ["Day 4 · Authorization & Security", [
+                        "Implement user and admin roles.",
+                        "Allow users to edit only their own data.",
+                        "Validate input using Zod or express-validator.",
+                        "Configure CORS, Helmet and rate limiting.",
+                        "Never commit secrets or real credentials."
+                    ]],
+                    ["Days 5–6 · Secure API & Deploy", [
+                        "Finish per-user task or notes CRUD.",
+                        "Add pagination and consistent validation errors.",
+                        "Optionally implement file uploads with Multer.",
+                        "Deploy API to a suitable host and connect Atlas.",
+                        "Test the live endpoints and authentication."
+                    ]]
+                ]
+            },
+            {
+                title: "React Fundamentals",
+                short: "Components, JSX, state and reusable interfaces.",
+                phase: "FRONTEND",
+                project: "A React mini-app with reusable components, forms, a list, search or filtering, and responsive styling.",
+                checkpoint: "Build React components independently and explain JSX, props, state, events, useEffect and controlled forms.",
+                days: [
+                    ["Day 1 · React & JSX", [
+                        "Create a Vite React project.",
+                        "Understand JSX and component structure.",
+                        "Create and export reusable components.",
+                        "Use props and children for composition."
+                    ]],
+                    ["Day 2 · State & Events", [
+                        "Learn useState and state updates.",
+                        "Handle clicks and form submissions.",
+                        "Build controlled inputs and forms.",
+                        "Understand one-way data flow."
+                    ]],
+                    ["Day 3 · Lists & Rendering", [
+                        "Render lists using map and stable keys.",
+                        "Use conditional rendering.",
+                        "Lift state up between components.",
+                        "Separate UI into reusable pieces."
+                    ]],
+                    ["Day 4 · Effects & Hooks", [
+                        "Understand useEffect and dependency arrays.",
+                        "Learn cleanup and common effect mistakes.",
+                        "Use useRef where appropriate.",
+                        "Build a simple custom hook."
+                    ]],
+                    ["Days 5–6 · React Mini-App", [
+                        "Build a task manager or student dashboard.",
+                        "Add create, edit, delete and filter features.",
+                        "Style with CSS Modules or Tailwind CSS.",
+                        "Test different screen sizes and fix warnings."
+                    ]]
+                ]
+            },
+            {
+                title: "React for Real Applications",
+                short: "Routing, API integration, authentication and caching.",
+                phase: "FRONTEND",
+                project: "A React frontend connected to your Week 4 API, with login, signup, protected dashboard and CRUD operations.",
+                checkpoint: "Explain props versus state versus server state, handle authentication and API failures, and manage queries and mutations.",
+                days: [
+                    ["Day 1 · Routing", [
+                        "Install and configure React Router.",
+                        "Create nested routes and URL parameters.",
+                        "Build a not-found page.",
+                        "Implement protected routes in the UI."
+                    ]],
+                    ["Day 2 · Server State", [
+                        "Install TanStack Query.",
+                        "Learn queries, mutations and caching.",
+                        "Invalidate queries after changes.",
+                        "Display loading, error and empty states."
+                    ]],
+                    ["Day 3 · Forms & Client State", [
+                        "Use React Hook Form.",
+                        "Validate form data with Zod.",
+                        "Understand Context and Zustand.",
+                        "Choose local, global or server state appropriately."
+                    ]],
+                    ["Day 4 · API & Auth Integration", [
+                        "Call the backend with fetch or Axios.",
+                        "Attach JWT credentials using a suitable strategy.",
+                        "Handle unauthorized responses and session expiry.",
+                        "Implement signup, login and logout.",
+                        "Understand secure cookie versus token storage trade-offs."
+                    ]],
+                    ["Days 5–6 · Full Frontend", [
+                        "Connect the Week 4 API.",
+                        "Build login, signup and protected dashboard pages.",
+                        "Implement create, edit and delete operations.",
+                        "Add loading, empty and error states.",
+                        "Test responsive design and authentication flows."
+                    ]]
+                ]
+            },
+            {
+                title: "Capstone — Plan & Build",
+                short: "Plan a client-style project and build its core features.",
+                phase: "FULL-STACK CAPSTONE",
+                project: "A working full-stack application with authentication, related database models, a functional API and core React screens.",
+                checkpoint: "Your project specification, database models, API endpoint list and primary user workflows work end to end.",
+                days: [
+                    ["Day 1 · Plan the Project", [
+                        "Write a one-page project specification.",
+                        "Define user roles and required features.",
+                        "Design data models and relationships.",
+                        "List API endpoints and frontend screens."
+                    ]],
+                    ["Day 2 · Development Setup", [
+                        "Set up client/ and server/ folders or repositories.",
+                        "Configure environment variables for each part.",
+                        "Add ESLint and Prettier.",
+                        "Create a GitHub repository and useful commits."
+                    ]],
+                    ["Day 3 · Backend Build", [
+                        "Create models, authentication and core endpoints.",
+                        "Implement authorization and validation.",
+                        "Test API flows using Postman.",
+                        "Handle errors and unauthorized requests."
+                    ]],
+                    ["Day 4 · Frontend Build", [
+                        "Configure routing and authentication UI.",
+                        "Build the main CRUD screens.",
+                        "Connect React forms to the API.",
+                        "Display loading and error states."
+                    ]],
+                    ["Days 5–6 · Real-World Feature", [
+                        "Add search and filtering, image upload or live updates.",
+                        "Use Cloudinary for optional image storage.",
+                        "Use Socket.IO if real-time updates are required.",
+                        "Test the complete primary user journey."
+                    ]]
+                ]
+            },
+            {
+                title: "Testing, Deployment & Portfolio",
+                short: "Polish, deploy, document and present your app.",
+                phase: "FULL-STACK CAPSTONE",
+                project: "A live, tested MERN application with a professional README, screenshots, public demo link and a short walkthrough video.",
+                checkpoint: "A new visitor can register, log in and use the deployed application. Your GitHub repository explains how to run it locally.",
+                days: [
+                    ["Day 1 · API Testing", [
+                        "Learn Jest or Vitest and Supertest.",
+                        "Test important API endpoints.",
+                        "Test invalid inputs and authentication failures.",
+                        "Fix bugs found by tests."
+                    ]],
+                    ["Day 2 · Frontend Quality", [
+                        "Add a few React Testing Library tests.",
+                        "Polish responsive layouts and navigation.",
+                        "Improve form errors and empty states.",
+                        "Add a 404 page and accessible labels."
+                    ]],
+                    ["Day 3 · Deployment", [
+                        "Deploy the API to a suitable supported host.",
+                        "Deploy the frontend to Vercel or Netlify.",
+                        "Use MongoDB Atlas for the database.",
+                        "Configure environment variables in each service.",
+                        "Configure CORS and production URLs."
+                    ]],
+                    ["Day 4 · Production Checks", [
+                        "Test signup, login and logout on the live site.",
+                        "Test CRUD and user permissions.",
+                        "Check mobile and desktop layouts.",
+                        "Inspect logs and fix deployment issues."
+                    ]],
+                    ["Days 5–6 · Portfolio", [
+                        "Write a clear README with setup instructions.",
+                        "Add screenshots, tech stack and live demo link.",
+                        "Explain key features and future improvements.",
+                        "Record a 1–2 minute walkthrough video.",
+                        "Optionally add TypeScript to one part of the app."
+                    ]]
                 ]
             }
         ];
 
-        const weekGrid = document.getElementById("weekGrid");
-        const weekDetails = document.getElementById("weekDetails");
-        const progressText = document.getElementById("progressText");
-        const progressFill = document.getElementById("progressFill");
+        const resources = [
+            ["JavaScript", "javascript.info — tutorials", "https://javascript.info/"],
+            ["JavaScript", "MDN JavaScript Guide", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide"],
+            ["Git", "Pro Git — free book", "https://git-scm.com/book/en/v2"],
+            ["Node.js", "Official Node.js Learn", "https://nodejs.org/en/learn"],
+            ["Express", "Express documentation", "https://expressjs.com/"],
+            ["MongoDB", "MongoDB University", "https://learn.mongodb.com/"],
+            ["Mongoose", "Mongoose documentation", "https://mongoosejs.com/docs/"],
+            ["React", "React official Learn", "https://react.dev/learn"],
+            ["React Router", "React Router documentation", "https://reactrouter.com/"],
+            ["TanStack Query", "Official documentation", "https://tanstack.com/query/latest"],
+            ["Zustand", "Zustand documentation", "https://zustand.docs.pmnd.rs/"],
+            ["Full Stack Open", "University of Helsinki course", "https://fullstackopen.com/en/"],
+            ["The Odin Project", "Free full-stack curriculum", "https://www.theodinproject.com/"],
+            ["GitHub Pages", "Static site deployment", "https://pages.github.com/"],
+            ["Vite", "Frontend tooling documentation", "https://vite.dev/"],
+            ["MongoDB Atlas", "Cloud database service", "https://www.mongodb.com/atlas"]
+        ];
 
-        let activeWeek = 0;
+        const $ = id => document.getElementById(id);
+        const STORAGE_KEY = "mernMasterRoadmapV1";
 
-        function renderWeeks() {
-            weekGrid.innerHTML = "";
+        let selectedWeek = 0;
+        let completed = loadProgress();
 
-            roadmap.forEach((week, index) => {
-                const card = document.createElement("button");
-                card.className = "week-card" + (index === activeWeek ? " active" : "");
-                card.innerHTML = `
-            <h2>${week.title}</h2>
-            <h3>${week.subtitle}</h3>
-            <p>${week.description}</p>
-            <p style="margin-top:12px">7 learning days</p>
-        `;
+        function loadProgress() {
+            try {
+                const value = JSON.parse(localStorage.getItem(STORAGE_KEY));
+                return value && typeof value === "object" ? value : {};
+            } catch {
+                return {};
+            }
+        }
 
-                card.addEventListener("click", () => {
-                    activeWeek = index;
-                    renderWeeks();
-                    renderWeekDetails();
+        function saveProgress() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(completed));
+            } catch (error) {
+                console.warn("Progress could not be saved:", error);
+            }
+        }
+
+        function taskKey(w, d, t) {
+            return `${w}-${d}-${t}`;
+        }
+
+        function weekTasks(w) {
+            return weeks[w].days.reduce((total, day, d) => {
+                return total + day[1].length + (d === 0 ? 1 : 0);
+            }, 0);
+        }
+
+        function getWeekProgress(w) {
+            let total = 0;
+            let done = 0;
+
+            weeks[w].days.forEach((day, d) => {
+                day[1].forEach((_, t) => {
+                    total++;
+                    if (completed[taskKey(w, d, t)]) done++;
                 });
 
-                weekGrid.appendChild(card);
+                if (d === 0) {
+                    total++;
+                    if (completed[`checkpoint-${w}`]) done++;
+                }
+            });
+
+            return { total, done, percent: total ? Math.round(done / total * 100) : 0 };
+        }
+
+        function overallProgress() {
+            let total = 0, done = 0;
+
+            weeks.forEach((_, w) => {
+                const p = getWeekProgress(w);
+                total += p.total;
+                done += p.done;
+            });
+
+            return { total, done, percent: total ? Math.round(done / total * 100) : 0 };
+        }
+
+        function renderNavigation() {
+            $("weekNav").innerHTML = weeks.map((week, i) => `
+    <button class="nav-item ${selectedWeek === i ? "active" : ""}"
+      data-week="${i}">
+      <span class="nav-num">${String(i + 1).padStart(2, "0")}</span>
+      Week ${i + 1}
+    </button>
+  `).join("");
+
+            document.querySelectorAll("[data-week]").forEach(button => {
+                button.addEventListener("click", () => {
+                    selectWeek(Number(button.dataset.week));
+                    $("weekDetails").scrollIntoView({ behavior: "smooth" });
+                    $("sidebar").classList.remove("open");
+                });
             });
         }
 
-        function renderWeekDetails() {
-            const week = roadmap[activeWeek];
+        function renderWeekCards() {
+            $("weekGrid").innerHTML = weeks.map((week, i) => {
+                const p = getWeekProgress(i);
 
-            weekDetails.innerHTML = `
-        <div class="week-heading">
-            <h2>${week.title}: ${week.subtitle}</h2>
-            <p>${week.description}</p>
+                return `
+      <button class="week-card ${selectedWeek === i ? "active" : ""} ${p.percent === 100 ? "completed" : ""}"
+        data-card-week="${i}">
+        <span class="week-label">WEEK ${String(i + 1).padStart(2, "0")}</span>
+        <h3>${week.title}</h3>
+        <p>${week.short}</p>
+        <div class="card-bottom">
+          <span>${p.done}/${p.total} tasks</span>
+          <span>${p.percent === 100 ? "✓ Complete" : p.percent + "%"}</span>
         </div>
-        <div id="daysContainer"></div>
+        <div class="mini-progress"><span style="width:${p.percent}%"></span></div>
+      </button>
     `;
+            }).join("");
 
-            const daysContainer = document.getElementById("daysContainer");
-
-            week.days.forEach((day, dayIndex) => {
-                const card = document.createElement("article");
-                card.className = "day-card";
-
-                const tasksHTML = day.topics.map((topic, topicIndex) => {
-                    const id = `w${activeWeek}d${dayIndex}t${topicIndex}`;
-                    return `
-                <li>
-                    <label>
-                        <input type="checkbox" data-task-id="${id}">
-                        ${topic}
-                    </label>
-                </li>
-            `;
-                }).join("");
-
-                card.innerHTML = `
-            <div class="day-title">
-                <h3>${day.title}</h3>
-                <span>＋</span>
-            </div>
-            <div class="day-content">
-                <h4>Topics to Learn</h4>
-                <ul>${tasksHTML}</ul>
-                <div class="project">
-                    <h4>Practice Task</h4>
-                    <p>${day.task}</p>
-                    <h4>Project</h4>
-                    <p>${day.project}</p>
-                    <h4>Checkpoint</h4>
-                    <p>${day.checkpoint}</p>
-                </div>
-            </div>
-        `;
-
-                card.querySelector(".day-title").addEventListener("click", () => {
-                    card.classList.toggle("open");
-                    card.querySelector(".day-title span").textContent =
-                        card.classList.contains("open") ? "−" : "＋";
-                });
-
-                daysContainer.appendChild(card);
-            });
-
-            document.querySelectorAll("[data-task-id]").forEach(checkbox => {
-                const id = checkbox.dataset.taskId;
-                checkbox.checked = localStorage.getItem(id) === "done";
-
-                checkbox.addEventListener("change", () => {
-                    localStorage.setItem(id, checkbox.checked ? "done" : "todo");
-                    updateProgress();
+            document.querySelectorAll("[data-card-week]").forEach(card => {
+                card.addEventListener("click", () => {
+                    selectWeek(Number(card.dataset.cardWeek));
+                    $("weekDetails").scrollIntoView({ behavior: "smooth" });
                 });
             });
-
-            updateProgress();
         }
 
-        function updateProgress() {
-            const checkboxes = document.querySelectorAll("[data-task-id]");
-            const allTaskIds = roadmap.flatMap((week, weekIndex) =>
-                week.days.flatMap((day, dayIndex) =>
-                    day.topics.map((topic, topicIndex) =>
-                        `w${weekIndex}d${dayIndex}t${topicIndex}`
-                    )
-                )
-            );
+        function renderDetails() {
+            const week = weeks[selectedWeek];
+            const p = getWeekProgress(selectedWeek);
+            const query = $("searchInput").value.trim().toLowerCase();
 
-            const completed = allTaskIds.filter(id =>
-                localStorage.getItem(id) === "done"
-            ).length;
+            const daysHtml = week.days.map((day, d) => {
+                const tasks = day[1].map((task, t) => ({ task, t }))
+                    .filter(item => !query || item.task.toLowerCase().includes(query));
 
-            const total = allTaskIds.length;
-            const percent = total ? (completed / total) * 100 : 0;
+                if (query && !tasks.length && !day[0].toLowerCase().includes(query)) {
+                    return "";
+                }
 
-            progressText.textContent = `${completed} of ${total} topics completed`;
-            progressFill.style.width = `${percent}%`;
+                return `
+      <div class="day">
+        <div class="day-head">
+          <h3>${day[0]}</h3>
+          <span class="day-count">
+            ${day[1].filter((_, t) => completed[taskKey(selectedWeek, d, t)]).length}/${day[1].length}
+            completed
+          </span>
+        </div>
+        ${tasks.map(({ task, t }) => `
+          <label class="task">
+            <input type="checkbox"
+              data-task="${taskKey(selectedWeek, d, t)}"
+              ${completed[taskKey(selectedWeek, d, t)] ? "checked" : ""}>
+            <span>${task}</span>
+          </label>
+        `).join("")}
+      </div>
+    `;
+            }).join("");
+
+            const checkpointChecked = Boolean(completed[`checkpoint-${selectedWeek}`]);
+
+            $("detailPanel").innerHTML = `
+    <div class="detail-head">
+      <span class="phase-tag">${week.phase}</span>
+      <h2>Week ${selectedWeek + 1}: ${week.title}</h2>
+      <p>${week.short}</p>
+      <div class="progress-line" style="margin-top:18px">
+        <div class="progress-fill" style="width:${p.percent}%"></div>
+      </div>
+      <span style="font-size:11px;color:var(--muted)">
+        ${p.done} of ${p.total} tasks completed · ${p.percent}%
+      </span>
+    </div>
+
+    <div class="detail-body">
+      ${daysHtml || '<p style="color:var(--muted);font-size:12px">No matching topics found. Try another search.</p>'}
+
+      <div class="project-box">
+        <h3>🚀 Weekly project</h3>
+        <p>${week.project}</p>
+      </div>
+
+      <div class="checkpoint">
+        <h3>✓ Week ${selectedWeek + 1} checkpoint</h3>
+        <p>${week.checkpoint}</p>
+        <label class="task" style="margin-top:10px">
+          <input type="checkbox" data-task="checkpoint-${selectedWeek}"
+            ${checkpointChecked ? "checked" : ""}>
+          <span>I have met this week's checkpoint.</span>
+        </label>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;gap:10px;margin-top:20px">
+        <button class="btn" id="prevWeek" ${selectedWeek === 0 ? "disabled" : ""}>
+          ← Previous
+        </button>
+        <button class="btn btn-primary" id="nextWeek"
+          ${selectedWeek === 7 ? "disabled" : ""}>
+          Next Week →
+        </button>
+      </div>
+    </div>
+  `;
+
+            $("detailPanel").querySelectorAll("[data-task]").forEach(input => {
+                input.addEventListener("change", () => {
+                    const key = input.dataset.task;
+
+                    if (input.checked) completed[key] = true;
+                    else delete completed[key];
+
+                    saveProgress();
+                    renderAll();
+                });
+            });
+
+            $("prevWeek").addEventListener("click", () => {
+                if (selectedWeek > 0) selectWeek(selectedWeek - 1);
+            });
+
+            $("nextWeek").addEventListener("click", () => {
+                if (selectedWeek < 7) selectWeek(selectedWeek + 1);
+            });
         }
 
-        renderWeeks();
-        renderWeekDetails();
+        function renderChecklist() {
+            $("finalChecklist").innerHTML = weeks.map((week, i) => {
+                const key = `checkpoint-${i}`;
+                const checked = Boolean(completed[key]);
+
+                return `
+      <label class="task">
+        <input type="checkbox" data-checkpoint="${i}" ${checked ? "checked" : ""}>
+        <span>
+          <b>Week ${i + 1}:</b> ${week.checkpoint}
+        </span>
+      </label>
+    `;
+            }).join("");
+
+            $("finalChecklist").querySelectorAll("[data-checkpoint]").forEach(input => {
+                input.addEventListener("change", () => {
+                    const key = `checkpoint-${input.dataset.checkpoint}`;
+
+                    if (input.checked) completed[key] = true;
+                    else delete completed[key];
+
+                    saveProgress();
+                    renderAll();
+                });
+            });
+        }
+
+        function renderResources() {
+            $("resourceGrid").innerHTML = resources.map(([name, description, url]) => `
+    <a class="resource" href="${url}" target="_blank" rel="noopener">
+      <strong>${name} ↗</strong>
+      <span>${description}</span>
+    </a>
+  `).join("");
+        }
+
+        function renderStats() {
+            const p = overallProgress();
+
+            $("sidePercent").textContent = p.percent + "%";
+            $("sideCount").textContent = `${p.done}/${p.total} tasks`;
+            $("sideFill").style.width = p.percent + "%";
+            $("statProgress").textContent = p.percent + "%";
+
+            $("continueBtn").textContent =
+                p.percent === 100 ? "Roadmap completed ✓" : "Continue learning →";
+        }
+
+        function selectWeek(index) {
+            selectedWeek = Math.max(0, Math.min(7, index));
+            $("searchInput").value = "";
+            renderAll();
+        }
+
+        function renderAll() {
+            renderNavigation();
+            renderWeekCards();
+            renderDetails();
+            renderChecklist();
+            renderStats();
+        }
+
+        $("searchInput").addEventListener("input", renderDetails);
+
+        $("continueBtn").addEventListener("click", () => {
+            const firstIncomplete = weeks.findIndex((_, i) => getWeekProgress(i).percent < 100);
+
+            selectWeek(firstIncomplete === -1 ? 7 : firstIncomplete);
+            $("weekDetails").scrollIntoView({ behavior: "smooth" });
+        });
+
+        $("resetBtn").addEventListener("click", () => {
+            if (!confirm("Are you sure you want to reset all your learning progress?")) return;
+
+            completed = {};
+            saveProgress();
+            renderAll();
+        });
+
+        $("menuBtn").addEventListener("click", () => {
+            $("sidebar").classList.toggle("open");
+        });
+
+        document.querySelectorAll("[data-target]").forEach(button => {
+            button.addEventListener("click", () => {
+                const target = $(button.dataset.target);
+
+                document.querySelectorAll(".nav-item").forEach(item => item.classList.remove("active"));
+                button.classList.add("active");
+
+                if (target) target.scrollIntoView({ behavior: "smooth" });
+                $("sidebar").classList.remove("open");
+            });
+        });
+
+        renderResources();
+        renderAll();
     </script>
-
 </body>
 
 </html>
