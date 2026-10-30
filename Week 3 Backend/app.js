@@ -1,54 +1,36 @@
-
 /*
 ====================================================
 WEEK 3 — OFFICE MANAGEMENT API
 Node.js + Express.js
 ====================================================
 
-ROADMAP:
-Day 1 — Express Setup & Server
-Day 2 — GET and POST Routes
-Day 3 — Request Data, PUT and DELETE
+DAY 1 — EXPRESS SETUP & SERVER
+DAY 2 — GET AND POST ROUTES
+DAY 3 — ROUTE PARAMETERS, PUT AND DELETE
+DAY 4 — NODE.JS FUNDAMENTALS
 
-IMPORTANT:
-Abhi hum database use nahi kar rahe.
-Routes requests ko handle karti hain, lekin data
-permanently save/update/delete nahi hota.
+NOTE:
+Abhi MongoDB connected nahi hai.
+API requests handle karti hai, lekin data permanently save nahi hota.
 */
 
 
 // ==================================================
-// DAY 1 — NODE.JS, EXPRESS SETUP & SERVER
+// DAY 1 — EXPRESS SETUP & SERVER
 // ==================================================
 
-// express package import kar rahe hain.
-// Express backend API aur server banane mein help karta hai.
 const express = require("express");
+const getemploy = require("./employe");
 
-// Express application create kar rahe hain.
-// "app" ke through hum routes aur middleware define karenge.
+console.log(getemploy());
+
 const app = express();
 
-
-// Middleware:
-// Incoming request ki JSON body ko JavaScript object
-// mein convert karne ke liye use hota hai.
-// Iske baghair req.body JSON requests ke liye undefined ho sakta hai.
 app.use(express.json());
 
-
-// HOME ROUTE — GET /
-// Browser mein http://localhost:10000/ open karne par
-// yeh response milega.
+// Home Route
 app.get("/", (req, res) => {
     res.send("Welcome to Office Management API!");
-});
-
-
-// Server start kar rahe hain.
-// Server port 10000 par requests receive karega.
-app.listen(10000, () => {
-    console.log("Office Management API running on port 10000");
 });
 
 
@@ -56,55 +38,28 @@ app.listen(10000, () => {
 // DAY 2 — GET AND POST ROUTES
 // ==================================================
 
-
-// GET ROUTE — EMPLOYEES
-// URL example:
-// http://localhost:10000/employees
-// http://localhost:10000/employees?department=IT
-
+// GET — Employees
 app.get("/employees", (req, res) => {
-
-    // req.query URL ke query parameters read karta hai.
-    // Example: ?department=IT se department ki value "IT" milegi.
     const department = req.query.department;
 
-    // Department ki value terminal mein show hogi.
     console.log(department);
-
-    // Client ko response bhej rahe hain.
     res.send(`Employees department: ${department}`);
 });
 
-
-// GET ROUTE — DEPARTMENTS
-// URL: http://localhost:10000/departments
-
+// GET — Departments
 app.get("/departments", (req, res) => {
     res.send("Welcome to Office Departments Management!");
 });
 
-
-// POST ROUTE — NEW EMPLOYEE
-// URL: POST http://localhost:10000/employees
-// Request body mein employee ki information bheji jayegi.
-
+// POST — New Employee
 app.post("/employees", (req, res) => {
-
-    // req.body client ki bheji hui JSON information deta hai.
     console.log(req.body);
-
-    // Department ki value terminal mein check kar sakte hain.
     console.log(req.body.department);
 
-    // Client ko response bhej rahe hain.
-    // Note: Is route mein employee database mein save nahi hota.
     res.send("New employee data received!");
 });
 
-
-// POST ROUTE — NEW DEPARTMENT
-// URL: POST http://localhost:10000/departments
-
+// POST — New Department
 app.post("/departments", (req, res) => {
     res.send("New department route reached!");
 });
@@ -114,114 +69,204 @@ app.post("/departments", (req, res) => {
 // DAY 3 — ROUTE PARAMETERS, PUT AND DELETE
 // ==================================================
 
-
-// GET ROUTE — EMPLOYEE ID AND DEPARTMENT
-// URL example:
-// http://localhost:10000/employees/105/HR
-//
-// :id aur :department dynamic route parameters hain.
-
+// GET — Route Parameters
 app.get("/employees/:id/:department", (req, res) => {
-
-    // URL se employee ki ID read kar rahe hain.
     const employeeId = req.params.id;
-
-    // URL se department ka naam read kar rahe hain.
     const department = req.params.department;
 
-    // Client ko employee ID aur department show kar rahe hain.
     res.send(`Welcome Employee ${employeeId}, ${department}`);
 });
 
-
-// PUT ROUTE — EMPLOYEE DEPARTMENT UPDATE REQUEST
-// URL: PUT http://localhost:10000/employees/105
-//
-// Request body example:
-// { "department": "IT" }
-
+// PUT — Update Employee Request
 app.put("/employees/:id", (req, res) => {
-
-    // URL se employee ID milti hai.
     const employeeId = req.params.id;
-
-    // Request body se new department milta hai.
     const department = req.body.department;
 
-    // Update request ka response bhej rahe hain.
-    // Note: Abhi actual record update nahi hota.
     res.send(
         `Employee ${employeeId} department update request: ${department}`
     );
 });
 
-
-// DELETE ROUTE — EMPLOYEE DELETE REQUEST
-// URL: DELETE http://localhost:10000/employees/105
-
+// DELETE — Employee Request
 app.delete("/employees/:id", (req, res) => {
-
-    // URL se employee ID read kar rahe hain.
     const employeeId = req.params.id;
 
-    // Delete request receive hone ka response.
-    // Note: Abhi actual employee record delete nahi hota.
     res.send(`Employee ${employeeId} delete request received!`);
 });
 
 
 // ==================================================
-// PRACTICE — FETCH API
-// ==================================================
-
-// Yeh code browser ke DevTools Console mein chala sakte ho.
-// Pehle confirm karo ke Express server running hai.
-//
-// fetch("http://localhost:10000/employees", {
-//     method: "POST",
-//     headers: {
-//         "Content-Type": "application/json"
-//     },
-//     body: JSON.stringify({
-//         name: "Sara Khan",
-//         department: "HR",
-//         position: "HR Manager"
-//     })
-// })
-// .then(response => response.text())
-// .then(data => console.log(data));
-
-
-// ==================================================
-// QUICK REVISION — HTTP METHODS
+// DAY 3 — FETCH API PRACTICE
 // ==================================================
 
 /*
-GET:
-Data read/retrieve karne ke liye.
-Example: GET /employees
+Run this code in browser DevTools Console:
 
-POST:
-Naya data bhejne ya create karne ki request.
-Example: POST /employees
+fetch("http://localhost:10000/employees", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        name: "Sara Khan",
+        department: "HR",
+        position: "HR Manager"
+    })
+})
+.then(response => response.text())
+.then(data => console.log(data));
+*/
 
-PUT:
-Existing data update karne ki request.
-Example: PUT /employees/105
 
-DELETE:
-Data delete karne ki request.
-Example: DELETE /employees/105
+// ==================================================
+// DAY 4 — NODE.JS FUNDAMENTALS
+// ==================================================
 
 
-IMPORTANT CONCEPTS:
+// 1. OS MODULE
 
-req.params  — URL ke dynamic parameters.
-req.query   — URL ke query parameters.
-req.body    — Request body ka data.
-res.send()  — Client ko response bhejta hai.
-console.log() — Terminal ya browser console mein value dikhata hai.
-fetch()     — Browser se HTTP request bhejta hai.
-JSON.stringify() — JavaScript object ko JSON string banata hai.
-express.json() — Incoming JSON request body parse karta hai.
+const os = require("os");
+
+console.log(os.platform());
+console.log(os.arch());
+console.log(os.hostname());
+console.log("Total Memory:", os.totalmem());
+
+
+// 2. FILE SYSTEM MODULE
+
+const fs = require("fs");
+
+// Create and write file
+fs.writeFileSync("employees.txt", "Ali - IT Department");
+
+// Read file
+const data = fs.readFileSync("employees.txt", "utf8");
+console.log(data);
+
+// Create department file
+fs.writeFileSync(
+    "departments.txt",
+    "IT - Department, GD - Department"
+);
+
+// Append data
+fs.appendFileSync("departments.txt", "\nHR Department");
+
+// Read updated data
+const data2 = fs.readFileSync("departments.txt", "utf8");
+console.log(data2);
+
+// Delete file
+fs.unlinkSync("employees.txt");
+
+// Create folders
+fs.mkdirSync("employees", { recursive: true });
+fs.mkdirSync("department", { recursive: true });
+
+// Read folder contents
+const files = fs.readdirSync("department");
+console.log(files);
+
+
+// 3. PATH MODULE
+
+const path = require("path");
+
+// Join paths
+const filePath = path.join("employees", "employe.js");
+console.log(filePath);
+
+// Get filename
+console.log(path.basename("employees/ali.txt"));
+
+// Get folder name
+console.log(path.dirname("employees/ali.txt"));
+
+// Get extension
+console.log(path.extname("employees/ali.txt"));
+
+// Get absolute path
+const fullPath = path.resolve("employees", "ali.txt");
+console.log(fullPath);
+
+// Join with current directory
+const filePath2 = path.join(__dirname, "employees", "ali.txt");
+console.log(filePath2);
+
+
+// 4. ENVIRONMENT VARIABLES
+
+// .env file:
+// PORT=10000
+
+require("dotenv").config();
+
+const PORT = process.env.PORT;
+
+
+// 5. SERVER START
+
+app.listen(PORT, () => {
+    console.log(`Office Management API running on port ${PORT}`);
+});
+
+
+// ==================================================
+// DAY 4 — NPM SCRIPTS
+// ==================================================
+
+/*
+package.json:
+
+"scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+}
+
+Commands:
+
+npm start
+npm run dev
+*/
+
+
+// ==================================================
+// DAY 4 — NODEMON
+// ==================================================
+
+/*
+Install:
+
+npm install --save-dev nodemon
+
+Run development server:
+
+npm run dev
+
+Nodemon automatically restarts the server
+when app.js changes.
+*/
+
+
+// ==================================================
+// QUICK REVISION
+// ==================================================
+
+/*
+req.params  — Route parameters
+req.query   — URL query parameters
+req.body    — Request body
+res.send()  — Send response
+express.json() — Parse JSON body
+fetch()     — Send HTTP requests
+fs          — File system operations
+path        — File path operations
+os          — Operating system information
+process.env — Environment variables
+nodemon     — Automatic server restart
+
+IMPORTANT:
+MongoDB is not connected yet.
+Employee records are not permanently stored.
 */
