@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mini Posts App</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="container">
+            <h1>Mini Posts</h1>
+            <p>Discover posts from around the world.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="posts-section">
+
+            <div class="section-heading">
+                <div>
+                    <h2>Latest Posts</h2>
+                    <p>Explore what people are sharing.</p>
+                </div>
+
+                <button id="loadPostsBtn" class="load-btn">
+                    Load Posts
+                </button>
+            </div>
+
+            <p id="message" class="message" aria-live="polite">
+                Click "Load Posts" to get started.
+            </p>
+
+            <div id="postsContainer" class="posts-grid">
+                <!-- JavaScript se post cards yahan add honge -->
+            </div>
+
+            <!-- Har post ke card ka HTML template -->
+
+            <template id="postTemplate">
+                <article class="post-card">
+                    <h3 class="post-title"></h3>
+
+                    <p class="post-body"></p>
+
+                    <span class="post-author"></span>
+                </article>
+            </template>
+
+
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Mini Posts App | Week 2 JavaScript Practice</p>
+    </footer>
+
+    <script src="/script.js"></script>
+</body>
+
+</html>
