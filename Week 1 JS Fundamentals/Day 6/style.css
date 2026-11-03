@@ -1,0 +1,68 @@
+/* Basic CSS */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+/* Flexbox */
+
+header {
+    background-color: #222;
+    color: white;
+    padding: 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav {
+    display: flex;
+    gap: 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
+
+/* CSS Grid */
+
+.students {
+    padding: 30px;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.students h2 {
+    grid-column: 1 / -1;
+}
+
+.student-card {
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+}
+
+/* Responsive Design */
+
+@media (max-width: 600px) {
+
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .students {
+        grid-template-columns: 1fr;
+    }
+}
