@@ -7,16 +7,10 @@
 
 // 1. IMPORT MONGOOSE
 
-// Mongoose library import kar rahe hain.
-// Mongoose MongoDB ke saath interact karne ke liye use hota hai.
-
 const mongoose = require("mongoose");
 
 
 // 2. IMPORT EMPLOYEE MODEL
-
-// Employee Model import kar rahe hain.
-// Is Model ki help se Employee collection ka data access karenge.
 
 const Employee = require("./models/Employee");
 
